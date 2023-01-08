@@ -1,0 +1,17 @@
+version: "3"
+services:
+  santa-voice:
+    build: .
+    environment:
+      - MQTT_HOST=mosquitto
+      - MQTT_TOPIC=santa
+    devices:
+      - /dev/snd:/dev/snd
+    volumes:
+      - ./sounds:/sounds:ro
+  mosquitto:
+    image: eclipse-mosquitto:2.0.15
+    ports:
+      - 18883:1883
+    volumes:
+      - ./mosquitto-conf:/mosquitto/config:ro
